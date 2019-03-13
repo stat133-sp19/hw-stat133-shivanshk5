@@ -70,17 +70,17 @@ After coming from one of the biggest heartbreaks and disappointing final results
 ### Data
 Here are a few tables that show the effective percentage for the different FG attempts for each player.
 
-##### 2 Pointer Effective Shooting Percentage
+#### 2 Pointer Effective Shooting Percentage
 ```{r echo = FALSE, message = FALSE}
 kable(two_pt_table, caption = "Effective Shooting Percentage for 2 PT FG")
 ```
 
-##### 3 Pointer Effective Shooting Percentage
+#### 3 Pointer Effective Shooting Percentage
 ```{r echo = FALSE, message = FALSE}
 kable(three_pt_table, caption = "Effective Shooting Percentage for 3 PT FG")
 ```
 
-##### Field Goal Effective Shooting Percentage
+#### Field Goal Effective Shooting Percentage
 ```{r echo = FALSE, message = FALSE}
 kable(pt_table, caption = "Effective Shooting Percentage for all FG")
 ```
