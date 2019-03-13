@@ -1,0 +1,95 @@
+---
+title: "Workout 01"
+author: Shivansh Kumar
+date: 13 March 2019
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Effective Shooting Percentage
+```{r}
+# Loading in dplyr package
+library("dplyr")
+
+# Reading in shots-data dataset
+shots_data <- read.csv("../data/shots-data.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Two pt table
+raw_two_pt_table <- count(group_by(select(shots_data[shots_data$shot_type == "2PT Field Goal", ], name, shot_made_flag, shot_type), name, shot_made_flag, shot_type), shot_made_flag)
+name <- character(0)
+total <- numeric(0)
+made <- numeric(0)
+for (i in seq(1, nrow(raw_two_pt_table), by = 2)){
+  name <- c(name, raw_two_pt_table$name[i])
+  made <- c(made, raw_two_pt_table$n[i+1])
+  total <- c(total, raw_two_pt_table$n[i] + raw_two_pt_table$n[i+1])
+}
+perc_made <- round(made / total * 100, 2)
+two_pt_table <- data.frame(name, made, total, perc_made)
+two_pt_table
+```
+
+
+```{r}
+# Three pt table
+raw_three_pt_table <- count(group_by(select(shots_data[shots_data$shot_type == "3PT Field Goal", ], name, shot_made_flag, shot_type), name, shot_made_flag, shot_type), shot_made_flag)
+name <- character(0)
+total <- numeric(0)
+made <- numeric(0)
+for (i in seq(1, nrow(raw_three_pt_table), by = 2)){
+  name <- c(name, raw_three_pt_table$name[i])
+  made <- c(made, raw_three_pt_table$n[i+1])
+  total <- c(total, raw_three_pt_table$n[i] + raw_three_pt_table$n[i+1])
+}
+perc_made <- round(made / total * 100, 2)
+three_pt_table <- data.frame(name, made, total, perc_made)
+three_pt_table
+```
+
+```{r}
+# Two pt table
+raw_pt_table <- count(group_by(select(shots_data, name, shot_made_flag, shot_type), name, shot_made_flag, shot_type), shot_made_flag)
+name <- character(0)
+total <- numeric(0)
+made <- numeric(0)
+for (i in seq(1, nrow(raw_pt_table), by = 4)){
+  name <- c(name, raw_pt_table$name[i])
+  made <- c(made, raw_pt_table$n[i+2] + raw_pt_table$n[i+3])
+  total <- c(total, raw_pt_table$n[i] + raw_pt_table$n[i+1] + raw_pt_table$n[i+2] + raw_pt_table$n[i+3])
+}
+perc_made <- round(made / total * 100, 2)
+pt_table <- data.frame(name, made, total, perc_made)
+pt_table
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
