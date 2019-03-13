@@ -75,8 +75,12 @@ summary(curry)
 sink()
 
 # Using rbind() to stack the tables into one single data frame 
+shots_data <- rbind(iguodala, green, durant, thompson, curry)
 
 # Exporting table into CSV file shots-data.csv
-# Use row.names = FALSE when using write.csv
+write.csv(shots_data, file = "../data/shots-data.csv", row.names = FALSE)
 
 # Using sink() to send the summary() output of the assembled table
+sink(file = '../output/shots-data-summary.txt')
+summary(shots_data)
+sink()
