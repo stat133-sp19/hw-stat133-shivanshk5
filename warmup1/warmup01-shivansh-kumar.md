@@ -1,0 +1,85 @@
+warmup01-shivansh-kumar
+================
+
+Star Wars
+=========
+
+![](https://vignette.wikia.nocookie.net/starwars/images/8/8d/AndoorniHui.jpg/revision/latest?cb=20090123060345)
+
+A quote by Andoorni Hui:
+
+> "Twelve has acquired targets."
+
+<!-- CSS code to center table and adjust width -->
+<style type="text/css">
+.table {
+    width: 40%;
+  }
+</style>
+| Description |  Value |
+|-------------|:------:|
+| Species     | Rodian |
+| Gender      | Female |
+| Eye Color   |  None  |
+| Skin Color  |  Black |
+
+Cooking Recipe
+==============
+
+### Chocolate Puddle Cake
+
+![](https://smittenkitchendotcom.files.wordpress.com/2019/02/chocolate-puddle-cakes.jpg?w=400)
+
+### Recipe:
+
+-   4 tablespoons unsalted butter
+-   2 teaspoons cocoa powder
+-   3 ounces bittersweet chocolate
+-   1/8 teaspoon fine sea salt
+-   1 to 2 tablespoons granulated sugar
+-   1 large egg
+-   1 egg yolk
+
+### Special Kitchen Tools:
+
+-   6 ounce ramekins
+-   Whisk
+-   Pot holders
+
+### Steps:
+
+1.  Heat oven to 450 degrees F and butter two 6 oz ramekins
+2.  Spoon a little cocoa poweder in each ramekin
+3.  Place 4 tablespoons butter and chocolate in a medium heatproof bowl to melt the butter and chocolate 2/3 of the way and whisk until finished melting
+4.  Whisk in sugar and salt. Then, whisk in egg and yolk and beat a good 20 to 30 extra time
+5.  Add 2 teaspoons cocoa powder and whisk until combined
+6.  Bake 7 to 9 minutes and transfer to a cooling rack for 1 minute
+7.  Place a small plate over first ramekin and flip it onto plate, count to ten, then lift the cup off.
+8.  Dust with cocoa powder for final touch
+
+### Special Season:
+
+Chocolate puddle cakes can also be eaten at any time but it is most popular during Valentine's Day and Christmas.
+
+### Variations:
+
+There are also some diffeent variations since the filling could be anything else also. There could be Nutella, cold butterscotch, or caramel sauce, raspberry sauce, and other chocolate flavors. Also, in the end, the dessert can be served with whipped cream, a little ice cream, or berries.
+
+Euclidean Distance
+==================
+
+### Definition
+
+The **Euclidean Distance** between points **p** and **q** is the length of the line segment ($\\overline{\\textbf{pq}}$).
+
+In Cartesian coordinates, if **p** = (*p*<sub>1</sub>, *p*<sub>2</sub>,..., *p*<sub>*n*</sub>) and **q** = (*q*<sub>1</sub>, *q*<sub>2</sub>,..., *q*<sub>*n*</sub>) are two points in Euclidean n-space, then the distance (d) from **p** to **q**, or from **q** to **p** is given by the Pythagorean formula:
+
+$$ d(\\textbf{p}, \\textbf{q}) = d(\\textbf{q}, \\textbf{p}) = \\sqrt{(q\_{1} - p\_{1})^2 + (q\_{2} - p\_{2})^2 + ... + (q\_{n} - p\_{n})^2}$$
+
+$$ = \\sqrt{\\sum\_{i=1}^{n}(q\_{i} - p\_{i})^2} $$
+
+The position of a point in a Euclidean n-space is a Euclidean vector. So, **p** and **q** may be represented as Euclidean vectors, starting from the origin of the space (initial point) with their tips (terminal points) ending at the two points. The Euclidean norm, or **Euclidean length**, or **magnitude** of a vector measures the length of the vector:
+
+$$ ||p|| = \\sqrt{p\_{1}^2+p\_{2}^2+...+p\_{n}^2} = \\sqrt{\\textbf{p} \\cdot \\textbf{p}},
+$$
+ where the last expression involves the the dot product.
