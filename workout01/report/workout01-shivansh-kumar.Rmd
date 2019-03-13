@@ -94,6 +94,7 @@ knitr::include_graphics('../images/gsw-shot-charts.png')
 ### Analysis
 This facetted shot chart allows us to visually analyze the shot charts for each individual player at one time. 
 
+Golden State Warrios have highest efficent field goal percentage for that season at 50.4 percent.
 
 ### Andre Iguodala
 
