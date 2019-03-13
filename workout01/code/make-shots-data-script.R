@@ -24,12 +24,55 @@ thompson <- read.csv("../data/klay-thompson.csv", stringsAsFactors = FALSE)
 curry <- read.csv("../data/stephen-curry.csv", stringsAsFactors = FALSE)
 
 # Adding column name to reach imported data for each player
+iguodala$name <- "Andre Iguodala"
+green$name <- "Draymond Green"
+durant$name <- "Kevin Durant"
+thompson$name <- "Klay Thompson"
+curry$name <- "Stephen Curry"
 
 # Changing original values of shot_made_flag to more descriptive values
+iguodala$shot_made_flag[iguodala$shot_made_flag == 'n'] <- "shot_no"
+iguodala$shot_made_flag[iguodala$shot_made_flag == 'y'] <- "shot_yes"
+
+green$shot_made_flag[green$shot_made_flag == 'n'] <- "shot_no"
+green$shot_made_flag[green$shot_made_flag == 'y'] <- "shot_yes"
+
+durant$shot_made_flag[durant$shot_made_flag == 'n'] <- "shot_no"
+durant$shot_made_flag[durant$shot_made_flag == 'y'] <- "shot_yes"
+
+thompson$shot_made_flag[thompson$shot_made_flag == 'n'] <- "shot_no"
+thompson$shot_made_flag[thompson$shot_made_flag == 'y'] <- "shot_yes"
+
+curry$shot_made_flag[curry$shot_made_flag == 'n'] <- "shot_no"
+curry$shot_made_flag[curry$shot_made_flag == 'y'] <- "shot_yes"
 
 # Add a column minute that contains the minute number where a shot occurred
+iguodala$minute <- 12 * iguodala$period - iguodala$minutes_remaining
+green$minute <- 12 * green$period - green$minutes_remaining
+durant$minute <- 12 * durant$period - durant$minutes_remaining
+thompson$minute <- 12 * thompson$period - thompson$minutes_remaining
+curry$minute <- 12 * curry$period - curry$minutes_remaining
 
 # Using sink() to send the summary() output of each imported data frame into individual text files
+sink(file = '../output/andre-iguodala-summary.txt')
+summary(iguodala)
+sink()
+
+sink(file = '../output/draymond-green-summary.txt')
+summary(green)
+sink()
+
+sink(file = '../output/kevin-durant-summary.txt')
+summary(durant)
+sink()
+
+sink(file = '../output/klay-thompson-summary.txt')
+summary(thompson)
+sink()
+
+sink(file = '../output/stephen-curry-summary.txt')
+summary(curry)
+sink()
 
 # Using rbind() to stack the tables into one single data frame 
 
