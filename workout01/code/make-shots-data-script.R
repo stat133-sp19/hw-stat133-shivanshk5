@@ -1,6 +1,7 @@
 # Title: Data Preparation
 # Author: Shivansh Kumar
 # Date: 13 March 2019
+# Description: Code reads in all the input data frames and adds certain columns like name and minutes to create a new data frame called shots_data. This file also exports the summaries of all the data frames.
 # Inputs: Data files in ../data folder
           # ../data/andre-iguodala.csv
           # ../data/draymond-green.csv
