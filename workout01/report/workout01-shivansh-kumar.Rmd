@@ -5,20 +5,24 @@ date: 13 March 2019
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+# Statistical Analysis of Warriors Championship Run as a Jump Shooting Team
+![](../images/warriors_all_stars.jpg)
 
-## Effective Shooting Percentage
-```{r}
+After coming from one of the biggest heartbreaks and disappointing final results in NBA history after a record-breaking regular season, the Warriors front office amazingly were able to sign one of the best basketball players on the planet. Kevin Durant would join the tandem of Steph Curry, Draymond Green, Klay Thompson, and Andre Iguodala to form arguably one of the best teams in NBA history. However, the infamous Charles Barkely still had his doubts about the Warrior's goal towards a championship. He claimed, "A jump-shooting team would never win the championship." However, with statistical evidence on their side (with obviously hours of jump shot practice), the team proves the ESPN analyst wrong.
+
+### Effective Shooting Percentage
+```{r echo=FALSE, message = FALSE, warning = FALSE}
 # Loading in dplyr package
 library("dplyr")
+library("gridExtra")
 
 # Reading in shots-data dataset
 shots_data <- read.csv("../data/shots-data.csv", stringsAsFactors = FALSE)
 ```
 
-```{r}
+
+### 2 Pointer Effective Shooting Percentage
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 # Two pt table
 raw_two_pt_table <- count(group_by(select(shots_data[shots_data$shot_type == "2PT Field Goal", ], name, shot_made_flag, shot_type), name, shot_made_flag, shot_type), shot_made_flag)
 name <- character(0)
@@ -30,12 +34,12 @@ for (i in seq(1, nrow(raw_two_pt_table), by = 2)){
   total <- c(total, raw_two_pt_table$n[i] + raw_two_pt_table$n[i+1])
 }
 perc_made <- round(made / total * 100, 2)
-two_pt_table <- data.frame(name, made, total, perc_made)
-two_pt_table
+two_pt_table <- arrange(data.frame(name, total, made, perc_made), desc(perc_made))
+grid.table(two_pt_table)
 ```
 
-
-```{r}
+### 3 Pointer Effective Shooting Percentage
+```{r echo = FALSE, message=FALSE}
 # Three pt table
 raw_three_pt_table <- count(group_by(select(shots_data[shots_data$shot_type == "3PT Field Goal", ], name, shot_made_flag, shot_type), name, shot_made_flag, shot_type), shot_made_flag)
 name <- character(0)
@@ -47,12 +51,13 @@ for (i in seq(1, nrow(raw_three_pt_table), by = 2)){
   total <- c(total, raw_three_pt_table$n[i] + raw_three_pt_table$n[i+1])
 }
 perc_made <- round(made / total * 100, 2)
-three_pt_table <- data.frame(name, made, total, perc_made)
-three_pt_table
+three_pt_table <- arrange(data.frame(name, total, made, perc_made), desc(perc_made))
+grid.table(three_pt_table)
 ```
 
-```{r}
-# Two pt table
+## Field Goal Effective Shooting Percentage
+```{r echo = FALSE, message = FALSE}
+# Pt table
 raw_pt_table <- count(group_by(select(shots_data, name, shot_made_flag, shot_type), name, shot_made_flag, shot_type), shot_made_flag)
 name <- character(0)
 total <- numeric(0)
@@ -63,13 +68,13 @@ for (i in seq(1, nrow(raw_pt_table), by = 4)){
   total <- c(total, raw_pt_table$n[i] + raw_pt_table$n[i+1] + raw_pt_table$n[i+2] + raw_pt_table$n[i+3])
 }
 perc_made <- round(made / total * 100, 2)
-pt_table <- data.frame(name, made, total, perc_made)
-pt_table
+pt_table <- arrange(data.frame(name, total, made, perc_made), desc(perc_made))
+grid.table(pt_table)
 ```
 
-
-
-
+```{r out.width='80%', echo=FALSE, fig.align='center', message = FALSE}
+knitr::include_graphics('../images/gsw-shot-charts.png')
+```
 
 
 
