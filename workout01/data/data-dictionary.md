@@ -44,7 +44,7 @@ Given is the exact variable name as in the data file, a version of the variable 
 | shot_type         | Point Value of Shot | Character   | Either "2PT Field Goal" or "3PT Field Goal"             |
 | shot_distance     | Distance of Shot    | Integer     | Distance from basket (in feet)                          |
 | opponent          | Opponent Team       | Character   | Opponent Team Name                                      |
-| x                 | Court Width         | Integer     | Dimension of Court Width (in feet) and max is 50'       |
+| x                 | Court Width         | Integer     | Dimension of Court Width (in feet) with positive values on left side of court anf negative values for right side of the court
 | y                 | Court Height        | Integer     | Dimension of Court Height (in feet) and max is 94'      |
 
 6. Missing Attribute Values: None
