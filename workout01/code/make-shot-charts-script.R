@@ -93,3 +93,22 @@ pdf(file = "../images/stephen-curry-shot-chart.pdf", width = 6.5, height = 5)
 steph_shot_chart
 dev.off()
 
+# Facetted Shot Chart
+shot_chart <- ggplot(data = shots_data) + 
+  annotation_custom(court_image, -250, 250, -50, 420) + 
+  geom_point(aes(x = x, y = y, color = shot_made_flag)) + 
+  ylim(-50, 420) +
+  ggtitle('Shot Charts: GSW (2016 season)') +
+  theme_minimal() + facet_wrap( ~ name, ncol = 3)
+shot_chart
+
+# Saving facetted shot chart in images/ as pdf and png
+pdf(file = "../images/gsw-shot-charts.pdf", width = 8, height = 7)
+shot_chart
+dev.off()
+
+# 8 inches is 768 px and 7 inches is 672 px for 96dpi 
+# Used https://www.pixelto.net/inches-to-px-converter
+png(file = "../images/gsw-shot-charts.png", width = 768, height = 672)
+shot_chart
+dev.off()
