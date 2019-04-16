@@ -15,35 +15,61 @@
 library(shiny)
 library(ggplot2)
 
-# Define UI for application that draws a histogram
+# Define UI for application
 ui <- fluidPage(
   
   # Application title
   titlePanel("Saving Investing Modalities"),
   
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-      sliderInput("initial",
-                  "Initial maount",
-                  min = 10,
-                  max = 10000,
-                  value = 100),
-      sliderInput("years", "Number of years",
-                  min = 1, max = 50,
-                  value = 10),
-      numericInput("mean", "mean return", value = 0.16,
-                   min = 0, max = 2),
-      numericInput("sd", "standard deviation", value = 0.11,
-                   min = 0, max = 2)
-    ),
+  # Input Widgets 
+  fluidRow(
+    column(3,
+        sliderInput("initial",
+                    "Initial Amount ($)",
+                    min = 0,
+                    max = 100000,
+                    value = 1000,
+                    step = 500)),
+    column(3,
+        sliderInput("rate",
+                    "Return Rate (%)",
+                    min = 0,
+                    max = 20,
+                    value = 5,
+                    step = 0.1)),
+    column(3,
+           sliderInput("years",
+                       "Years",
+                       min = 0,
+                       max = 50,
+                       value = 20,
+                       step = 1))),
+  fluidRow(
+    column(3,
+        sliderInput("annual", "Annual Contribution ($)",
+                    min = 0, 
+                    max = 50000,
+                    value = 2000,
+                    step = 500)),
+    column(3,
+        sliderInput("growth", "Growth Rate (%)",
+                    min = 0, 
+                    max = 20,
+                    value = 2,
+                    step = 0.1)),
+    column(3,
+        selectInput("facet",
+                    "Facet?",
+                    choices = c("Yes", "No"),
+                    selected = "No"))),
     
-    # Show a plot of the generated distribution
+    # Show a plot and table of the generated distribution
     mainPanel(
-      plotOutput("distPlot"),
-      plotOutput("returns")
+      h4('Timelines'),
+      plotOutput("plotting"),
+      h4("Balances"),
+      tableOutput("balances")
     )
-  )
 )
 
 # Define server logic required to draw a histogram
