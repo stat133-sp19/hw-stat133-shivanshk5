@@ -66,11 +66,56 @@ ui <- fluidPage(
     # Show a plot and table of the generated distribution
     mainPanel(
       h4('Timelines'),
-      plotOutput("plotting"),
+      plotOutput("p"),
       h4("Balances"),
       tableOutput("balances")
     )
 )
+
+# Modality functions
+
+# Write a function future_value() that computes the future value of an investment, taking the following arguments: amount, rate, years
+#' @title Future Value Function
+#' @description Computes the future value of an investment
+#' @param amount initial invested amount (numeric)
+#' @param rate annual rate of return (numeric)
+#' @param years number of years (numeric)
+#' @return computed future value of the investment amount based upon parameter values (numeric)
+future_value <- function(amount, rate, years) {
+  if (amount < 0 || rate < 0 || years < 0) {
+    stop("Function cannot take negative values")
+  }
+  return(amount * ((1 + rate)^years))
+}
+
+# Write a function annuity() that computes the future value of annuity, taking the following arguments: contrib, rate, years
+#' @title Future Value of Annuity
+#' @description Computes the future value of annuity
+#' @param contrib contributed amount (numeric)
+#' @param rate annual rate of return (numeric)
+#' @param years time in years (numeric)
+#' @return computed future value of annuity based upon parameter values (numeric)
+annuity <- function(contrib, rate, years) {
+  if (contrib < 0 || rate < 0 || years < 0) {
+    stop("Function cannot take negative values")
+  }
+  return(contrib * (((1 + rate)^years - 1)/rate))
+}
+
+# Write a function growing_annuity() that computes the future value of growing annuity, taking the following arguments: contrib, rate, growth, years
+#' @title Future Value of Growing Annuity
+#' @description Computes the future value of growing annuity
+#' @param contrib first contribution (numeric)
+#' @param rate annual rate of return (numeric)
+#' @param growth growth rate (numeric)
+#' @param years time in years (numeric)
+#' @return computed future value of growing annuity based upon parameter values (numeric)
+growing_annuity <- function(contrib, rate, growth, years) {
+  if (contrib < 0 || rate < 0 || growth < 0 || years < 0) {
+    stop("Function cannot take negative values")
+  }
+  return(contrib * (((1 + rate)^years - (1 + growth)^years)/(rate - growth)))
+}
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
