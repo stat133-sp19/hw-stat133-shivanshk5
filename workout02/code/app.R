@@ -120,6 +120,7 @@ growing_annuity <- function(contrib, rate, growth, years) {
 # Define server logic required to draw the plot and display the table
 server <- function(input, output) {
   
+  # Displaying the plot
   output$plot <- renderPlot({
     no_contrib <- c(input$initial)
     fixed_contrib <- c(input$initial)
@@ -153,9 +154,12 @@ server <- function(input, output) {
     }
   })
   
-  output$balances <- renderTable(digits = 3, {
+  # Displaying the table
+  output$balances <- renderTable(digits = 3, rownames = TRUE, {
     year <- 0:input$year
-    data.frame(cbind(year, no_contrib, fixed_contrib, growing_contrib))
+    tab <- data.frame(cbind(year, no_contrib, fixed_contrib, growing_contrib))
+    tab$year <- sprintf('%1.0f', tab$year)
+    tab
   })
 }
 
