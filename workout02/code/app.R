@@ -117,7 +117,7 @@ growing_annuity <- function(contrib, rate, growth, years) {
   return(contrib * (((1 + rate)^years - (1 + growth)^years)/(rate - growth)))
 }
 
-# Define server logic required to draw a histogram
+# Define server logic required to draw the plot and display the table
 server <- function(input, output) {
   
   output$plot <- renderPlot({
@@ -125,10 +125,10 @@ server <- function(input, output) {
     fixed_contrib <- c(input$initial)
     growing_contrib <- c(input$initial)
     
-    for(i in 1:input$year + 1) {
-      no_contrib <- c(no_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i - 1))
-      fixed_contrib <- c(fixed_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i - 1) + annuity(contrib = input$annual, rate = input$rate / 100, years = i - 1))
-      growing_contrib <- c(growing_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i - 1) + growing_annuity(contrib = input$annual, rate = input$rate / 100, growth = input$growth / 100, years = i - 1))
+    for(i in 1:input$year) {
+      no_contrib <- c(no_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i))
+      fixed_contrib <- c(fixed_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i) + annuity(contrib = input$annual, rate = input$rate / 100, years = i))
+      growing_contrib <- c(growing_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i) + growing_annuity(contrib = input$annual, rate = input$rate / 100, growth = input$growth / 100, years = i))
     }
     
     dat <- data.frame(year = 0:input$year, mode = rep(c('no_contrib', 'fixed_contrib', 'growing_contrib'), each = input$year + 1), balance = c(no_contrib, fixed_contrib, growing_contrib))
@@ -151,6 +151,11 @@ server <- function(input, output) {
         geom_area(aes(fill = mode), alpha = 0.5) +
         facet_wrap(~mode)
     }
+  })
+  
+  output$balances <- renderTable(digits = 3, {
+    year <- 0:input$year
+    data.frame(cbind(year, no_contrib, fixed_contrib, growing_contrib))
   })
 }
 
