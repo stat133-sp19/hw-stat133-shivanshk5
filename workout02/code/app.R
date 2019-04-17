@@ -3,13 +3,13 @@
 # Date: 16 April 2019
 # Description: Code creates a shiny app that visually displays the savings from the three different modes of investing: no annuity, annuity, and growth annuity
 # Input Widgets: # Slider input for Initial Amount from $0 to $100,000 in steps of $500 with default of $1,000
-                 # Slider input for Annual Contribution from $0 to $50,000 in steps of $500 with default of $2,000
-                 # Slider input for Return Rate from 0% to 20% in steps of 0.1% with default of 5%  
-                 # Slider input for Growth Rate from 0% to 20% in steps of 0.1% with default of 2%  
-                 # Slider input for Years from 0 to 50 in steps of 1 with default of 20 years
-                 # Select input for Facet?. Choices are "Yes" or "No"
+# Slider input for Annual Contribution from $0 to $50,000 in steps of $500 with default of $2,000
+# Slider input for Return Rate from 0% to 20% in steps of 0.1% with default of 5%  
+# Slider input for Growth Rate from 0% to 20% in steps of 0.1% with default of 2%  
+# Slider input for Years from 0 to 50 in steps of 1 with default of 20 years
+# Select input for Facet?. Choices are "Yes" or "No"
 # Outputs:  # An output graph to display the yearly saving balances
-            # An output table for the data frame with the yearly balances
+# An output table for the data frame with the yearly balances
 
 # Loading libraries
 library(shiny)
@@ -24,19 +24,19 @@ ui <- fluidPage(
   # Input Widgets 
   fluidRow(
     column(4,
-        sliderInput("initial",
-                    "Initial Amount ($)",
-                    min = 0,
-                    max = 100000,
-                    value = 1000,
-                    step = 500)),
+           sliderInput("initial",
+                       "Initial Amount ($)",
+                       min = 0,
+                       max = 100000,
+                       value = 1000,
+                       step = 500)),
     column(4,
-        sliderInput("rate",
-                    "Return Rate (%)",
-                    min = 0,
-                    max = 20,
-                    value = 5,
-                    step = 0.1)),
+           sliderInput("rate",
+                       "Return Rate (%)",
+                       min = 0,
+                       max = 20,
+                       value = 5,
+                       step = 0.1)),
     column(4,
            sliderInput("year",
                        "Years",
@@ -46,30 +46,30 @@ ui <- fluidPage(
                        step = 1))),
   fluidRow(
     column(4,
-        sliderInput("annual", "Annual Contribution ($)",
-                    min = 0, 
-                    max = 50000,
-                    value = 2000,
-                    step = 500)),
+           sliderInput("annual", "Annual Contribution ($)",
+                       min = 0, 
+                       max = 50000,
+                       value = 2000,
+                       step = 500)),
     column(4,
-        sliderInput("growth", "Growth Rate (%)",
-                    min = 0, 
-                    max = 20,
-                    value = 2,
-                    step = 0.1)),
+           sliderInput("growth", "Growth Rate (%)",
+                       min = 0, 
+                       max = 20,
+                       value = 2,
+                       step = 0.1)),
     column(4,
-        selectInput("facet",
-                    "Facet?",
-                    choices = c("Yes", "No"),
-                    selected = "No"))),
-    
-    # Show a plot and table of the generated distribution
-    mainPanel(
-      h4('Timelines'),
-      plotOutput("plot"),
-      h4("Balances"),
-      tableOutput("balances")
-    )
+           selectInput("facet",
+                       "Facet?",
+                       choices = c("Yes", "No"),
+                       selected = "No"))),
+  
+  # Show a plot and table of the generated distribution
+  mainPanel(
+    h4('Timelines'),
+    plotOutput("plot"),
+    h4("Balances"),
+    tableOutput("balances")
+  )
 )
 
 # Modality functions
@@ -156,6 +156,17 @@ server <- function(input, output) {
   
   # Displaying the table
   output$balances <- renderTable(digits = 3, rownames = TRUE, {
+    
+    no_contrib <- c(input$initial)
+    fixed_contrib <- c(input$initial)
+    growing_contrib <- c(input$initial)
+    
+    for(i in 1:input$year) {
+      no_contrib <- c(no_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i))
+      fixed_contrib <- c(fixed_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i) + annuity(contrib = input$annual, rate = input$rate / 100, years = i))
+      growing_contrib <- c(growing_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i) + growing_annuity(contrib = input$annual, rate = input$rate / 100, growth = input$growth / 100, years = i))
+    }
+    
     year <- 0:input$year
     tab <- data.frame(cbind(year, no_contrib, fixed_contrib, growing_contrib))
     tab$year <- sprintf('%1.0f', tab$year)
@@ -165,4 +176,3 @@ server <- function(input, output) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
-
