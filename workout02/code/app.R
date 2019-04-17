@@ -23,41 +23,41 @@ ui <- fluidPage(
   
   # Input Widgets 
   fluidRow(
-    column(3,
+    column(4,
         sliderInput("initial",
                     "Initial Amount ($)",
                     min = 0,
                     max = 100000,
                     value = 1000,
                     step = 500)),
-    column(3,
+    column(4,
         sliderInput("rate",
                     "Return Rate (%)",
                     min = 0,
                     max = 20,
                     value = 5,
                     step = 0.1)),
-    column(3,
-           sliderInput("years",
+    column(4,
+           sliderInput("year",
                        "Years",
                        min = 0,
                        max = 50,
                        value = 20,
                        step = 1))),
   fluidRow(
-    column(3,
+    column(4,
         sliderInput("annual", "Annual Contribution ($)",
                     min = 0, 
                     max = 50000,
                     value = 2000,
                     step = 500)),
-    column(3,
+    column(4,
         sliderInput("growth", "Growth Rate (%)",
                     min = 0, 
                     max = 20,
                     value = 2,
                     step = 0.1)),
-    column(3,
+    column(4,
         selectInput("facet",
                     "Facet?",
                     choices = c("Yes", "No"),
@@ -66,7 +66,7 @@ ui <- fluidPage(
     # Show a plot and table of the generated distribution
     mainPanel(
       h4('Timelines'),
-      plotOutput("p"),
+      plotOutput("plot"),
       h4("Balances"),
       tableOutput("balances")
     )
@@ -120,31 +120,37 @@ growing_annuity <- function(contrib, rate, growth, years) {
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
-  dat <- reactive({
-    balance <- c(input$initial, rep(0, input$years))
-    rates <- rep(0, input$years)
+  output$plot <- renderPlot({
+    no_contrib <- c(input$initial)
+    fixed_contrib <- c(input$initial)
+    growing_contrib <- c(input$initial)
     
-    for (y in 1:input$years) {
-      rates[y] <- rnorm(1, input$mean, input$sd)
-      balance[y+1] <- balance[y] * (1 + rates[y])
+    for(i in 1:input$year + 1) {
+      no_contrib <- c(no_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i - 1))
+      fixed_contrib <- c(fixed_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i - 1) + annuity(contrib = input$annual, rate = input$rate / 100, years = i - 1))
+      growing_contrib <- c(growing_contrib, future_value(amount = input$initial, rate = input$rate / 100, years = i - 1) + growing_annuity(contrib = input$annual, rate = input$rate / 100, growth = input$growth / 100, years = i - 1))
     }
-    dat <- data.frame(
-      year = 0:input$years,
-      rate = c(0, rates),
-      balance = balance
-    )
-    return(dat)
-  })
-  
-  output$distPlot <- renderPlot({
-    ggplot(data = dat(), aes(x = year, y = balance)) + 
-      geom_line()
-  })
-  
-  output$returns <- renderPlot({
-    ggplot(data = dat(), aes(x = year, y = rate)) +
-      geom_line() + 
-      geom_hline(yintercept = 0, color = "tomato")
+    
+    dat <- data.frame(year = 0:input$year, mode = rep(c('no_contrib', 'fixed_contrib', 'growing_contrib'), each = input$year + 1), balance = c(no_contrib, fixed_contrib, growing_contrib))
+    dat$mode <- factor(dat$mode, levels = c('no_contrib', 'fixed_contrib', 'growing_contrib'))
+    
+    if (input$facet == "No") {
+      ggplot(data = dat, aes(x = year, y = balance, col = mode)) + 
+        ggtitle('Investing Modes Comparison') + xlab('Year') + ylab('Balance') +
+        geom_line() + 
+        theme_bw() + 
+        geom_point() + 
+        scale_color_discrete('mode')
+    } else {
+      ggplot(data = dat, aes(x = year, y = balance, col = mode)) + 
+        ggtitle('Investing Modes Comparison') + xlab('Year') + ylab('Balance') +
+        geom_line() + 
+        theme_bw() + 
+        geom_point() + 
+        scale_color_discrete('mode') +
+        geom_area(aes(fill = mode), alpha = 0.5) +
+        facet_wrap(~mode)
+    }
   })
 }
 
