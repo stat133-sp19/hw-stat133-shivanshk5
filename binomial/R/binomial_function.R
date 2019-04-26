@@ -1,6 +1,6 @@
 # Title: Binomial Package Functions
 # Author: Shivansh Kumar
-# Date: 23 April 2019
+# Date: 1 May 2019
 # Description: Code creates all the required private checker functions, private auxiliary functions for summary measures, and main function and methods for the binomial R package.
 # Private checker functions include check_prob(), check_trials(), and check_success()
 # Private auxiliary functions include aux_mean(), aux_variance(), aux_mode(), aux_skewness(), aux_kurtosis()
