@@ -4,4 +4,6 @@
 # Description: Code includes tests from the "testthat" package for the summary measures context.
 #              Functions to check are aux_mean(), aux_variance(), aux_mode(), aux_skewness(), aux_kurtosis()
 
+context("summary measures")
+
 
