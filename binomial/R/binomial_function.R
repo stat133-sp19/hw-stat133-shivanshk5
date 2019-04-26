@@ -54,8 +54,6 @@ check_success <- function(success, trials) {
   }
   return(TRUE)
 }
-# Test for decimal, larger length vector, string, and valid
-
 
 # PRIVATE AUXILIARY FUNCTIONS FOR SUMMARY MEASURES
 # Title: Mean
