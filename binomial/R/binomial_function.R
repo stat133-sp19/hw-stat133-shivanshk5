@@ -22,7 +22,6 @@ check_prob <- function(prob) {
   }
   return(TRUE)
 }
-# Test for negative, greater than 1, string, and valid
 
 # Title: Trials Checker
 # Private auxiliary function to test if input trials is valid value for number of trials
@@ -34,7 +33,6 @@ check_trials <- function(trials) {
   }
   return(TRUE)
 }
-# Test for decimal, negative, string, and valid
 
 # Title: Success Checker
 # Private auxiliary function to test if input is valid value for number of successes
@@ -42,6 +40,7 @@ check_trials <- function(trials) {
 # Valid if sucess is vector of non-negative integers
 # Returns TRUE if valid
 check_success <- function(success, trials) {
+  check_trials(trials)
   if (length(success) > trials) {
     stop('success cannot be greater than trials')
   }
@@ -49,7 +48,7 @@ check_success <- function(success, trials) {
     return(TRUE)
   }
   for (i in 1:length(success)) {
-    if(success[i] %% 1 != 0 | success[i] < 0) {
+    if(success[i] %% 1 != 0 | success[i] < 0 | success[i] > trials) {
       stop("invalid success value")
     }
   }
