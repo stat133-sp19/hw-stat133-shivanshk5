@@ -1,104 +1,13 @@
-# Title: Binomial Package Functions
+# Title: Main Functions and Methods
 # Author: Shivansh Kumar
 # Date: 1 May 2019
-# Description: Code creates all the required private checker functions, private auxiliary functions for summary measures, and main function and methods for the binomial R package.
-# Private checker functions include check_prob(), check_trials(), and check_success()
-# Private auxiliary functions include aux_mean(), aux_variance(), aux_mode(), aux_skewness(), aux_kurtosis()
+# Description: Code creates all the required main function and methods for the binomial R package.
 # Main functions include bin_choose(), bin_probability(), bin_distribution() and plot.bindis(), bin_cumulative() and plot.bincum(), bin_var() and print.binvar() and summary.binvar() and print.summary.binvar()
 #                        bin_mean(), bin_variance(), bin_mode(), bin_skewness(), bin_kurtosis()
 
 
 # Loading required libraries
 library(ggplot2)
-
-# PRIVATE CHECKER FUNCTIONS
-# Title: Probability Checker
-# Private auxiliary function to test if input prob is valid probability value
-# Input prob is a probability value (valid if numeric value between 0 and 1)
-# Returns TRUE if valid
-check_prob <- function(prob) {
-  if (class(prob) != "numeric" | prob < 0 | prob > 1 | length(prob) != 1) {
-    stop("probability has to be a number between 0 and 1")
-  }
-  return(TRUE)
-}
-
-# Title: Trials Checker
-# Private auxiliary function to test if input trials is valid value for number of trials
-# Input trials is number of trials (valid if number of trials is a non-negative integer)
-# Returns TRUE if valid
-check_trials <- function(trials) {
-  if (trials %% 1 != 0 | trials < 0 | length(trials) != 1) {
-    stop("invalid trials value")
-  }
-  return(TRUE)
-}
-
-# Title: Success Checker
-# Private auxiliary function to test if input is valid value for number of successes
-# Inputs are success and trials that represent number of successes and trials respectively
-# Valid if sucess is vector of non-negative integers
-# Returns TRUE if valid
-check_success <- function(success, trials) {
-  check_trials(trials)
-  if (length(success) > trials) {
-    stop('success cannot be greater than trials')
-  }
-  if (length(success) == 0 & class(success) == "numeric") {
-    return(TRUE)
-  }
-  for (i in 1:length(success)) {
-    if(success[i] %% 1 != 0 | success[i] < 0 | success[i] > trials) {
-      stop("invalid success value")
-    }
-  }
-  return(TRUE)
-}
-
-# PRIVATE AUXILIARY FUNCTIONS FOR SUMMARY MEASURES
-# Title: Mean
-# Private auxiliary function that returns expected mean of a binomial distribution
-# Returns expected number of successes in n trials
-# Inputs are trials and prob that represent number of trials and probability of success per trial respectively
-aux_mean <- function(trials, prob) {
-  return(trials * prob)
-}
-
-# Title: Variance
-# Private auxiliary function that returns variance of a binomial distribution
-# Inputs are trials and prob that represent number of trials and probability of success per trial respectively
-aux_variance <- function(trials, prob) {
-  return((trials * prob) * (1 - prob))
-}
-
-# Title: Mode
-# Private auxiliary function that returns most likely number of success in n independent trials
-# Returns mode of the binomial distribution (can be unique or can have 2 most likely numbers)
-# Inputs are trials and prob that represent number of trials and probability of success per trial respectively
-aux_mode <- function(trials, prob) {
-  m <- trials * prob + prob
-  if (m %% 1 == 0) {
-    return(c(m, m - 1))
-  }
-  return(as.integer(m))
-}
-
-# Title: Skewness
-# Private auxiliary function that returns measure of the asymmetry of the probability distribution of a random variable about its mean
-# Returns skewness of the binomial distribution (can be positive, negative, or undefined)
-# Inputs are trials and prob that represent number of trials and probability of success per trial respectively
-aux_skewness <- function(trials, prob) {
-  return((1 - 2 * prob)/(sqrt(trials * prob * (1 - prob))))
-}
-
-# Title: Kurtosis
-# Private auxiliary function that returns measure of the "tailedness" of the probability distribution of a random variable
-# Returns kurtosis of the binomial distribution
-# Inputs are trials and prob that represent number of trials and probability of success per trial respectively
-aux_kurtosis <- function(trials, prob) {
-  return((1 - 6 * prob * (1 - prob))/(trials * prob * (1 - prob)))
-}
-
 
 # MAIN FUNCTIONS
 #' @title Binomial Choose Function
