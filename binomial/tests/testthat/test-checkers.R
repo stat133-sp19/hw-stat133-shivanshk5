@@ -9,8 +9,6 @@
 # Expectation 1 test: prob is a number between 0 and 1
 # Expectation 2 test: prob is of length 1
 # Expectation 3 test: getting error if prob is invalid
-
-
 context("check_prob")
 
 # Expectation 1
