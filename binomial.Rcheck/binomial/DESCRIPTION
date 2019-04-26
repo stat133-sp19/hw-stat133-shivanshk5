@@ -1,0 +1,14 @@
+Package: binomial
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+NeedsCompilation: no
+Packaged: 2019-04-26 04:59:13 UTC; Shivi
+Built: R 3.2.1; ; 2019-04-26 04:59:14 UTC; unix
