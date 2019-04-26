@@ -4,10 +4,9 @@ Title: Binomial Function Descriptions and Evaluations
 Version: 0.1.0
 Author: Shivansh Kumar
 Maintainer: Shivansh Kumar <shivanshk5@berkeley.edu>
-Description: Functions that describe binomial distribution objects with a variety of functions 
-    that calculate different measures and displays different plots based on different inputs
-    such as number of trials, probability of success of a trial, and in some functions, the 
-    number of successes.
+Description: Functions that describe binomial distribution objects that calculate different 
+    measures and displays different plots based on different inputs such as number of trials, 
+    probability of success of a trial, and in some functions, the number of successes.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
