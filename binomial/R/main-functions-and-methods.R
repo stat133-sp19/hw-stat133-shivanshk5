@@ -124,7 +124,7 @@ plot.bincum <- function(x) {
 }
 
 #' @title Binomial Random Variable Function
-#' @description Returns an object of class "binvar"that is a binomial random variable object.
+#' @description Returns an object of class "binvar" that is a binomial random variable object.
 #' @param trials number of trials (numeric)
 #' @param prob probability of getting a success in a trial (numeric)
 #' @return object of class binvar that is a binomial random variable object ("binvar")
