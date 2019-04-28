@@ -111,7 +111,7 @@ bin_cumulative <- function(trials, prob) {
 #' @export
 #' @examples
 #' dis2 <- bin_cumulative(trials = 5, prob = 0.5)
-#' plot(dis1)
+#' plot(dis2)
 plot.bincum <- function(x) {
   ggplot(data=x, aes(x=success, y=cumulative)) +
     ggtitle("Cumulative Distribution Plot") +
