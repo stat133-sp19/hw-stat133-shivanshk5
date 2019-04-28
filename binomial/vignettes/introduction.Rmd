@@ -15,22 +15,101 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 library(binomial)
 ```
 
-## R Markdown
+## Binomial Distribution Package Starter Kit
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+The **binomial** package implements different functions and methods that calculate and display different summary measures of different binomial objects. There are also functions that can be used to create a binomial object that can be used to find the probability of success based on different parameter values that describe this binomial function.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Getting Started with Binomial Package
 
-```{r cars}
-summary(cars)
+Load the binomial package and other required packages into the workspace with the code below:
+```{r}
+library(binomial)
+library(ggplot2)
 ```
 
-## Including Plots
+In the binomial package, there are some *main functions* that can be used to describe different binomial distributions with examples on how to use.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+1. **bin_choose**:  Binomial choose function that computes the number of combinations in which `k` successes can occur in `n` trials.
+```{r bin_choose}
+bin_choose(n = 10, k = 5)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+2. **bin_probability**:  Binomial probability function that computes the probability of getting `k` successes in `n` trials with probability of success `prob`.
+```{r bin_probability}
+bin_probability(success = 2, trials = 5, prob = 0.5)
+```
+
+3. **bin_distribution**: Binomial distribution function that creates a binomial distribution data frame using the binomial probability function with successes and probabilities as columns.
+```{r bin_distribution}
+bin_distribution(trials = 5, prob = 0.5)
+```
+
+Method used with `bin_distribution` function that graphs barplot to display probability histogram of binomial distribution object "bindis":
+```{r plot_bin_distribution}
+dis1 <- bin_distribution(trials = 5, prob = 0.5)
+plot(dis1)
+```
+
+4. **bin_cumulative**: Binomial cumulative function that creates a binomial distribution data frame using the binomial probability function with successes, probabilities, and cumulative probabilities as columns.
+```{r bin_cumulative}
+bin_cumulative(trials = 5, prob = 0.5)
+```
+
+Method used with `bin_cumulative` function that graphs the cumulative distribution of binomial distribution object "bincum":
+```{r plot_bin_cumulative}
+dis2 <- bin_cumulative(trials = 5, prob = 0.5)
+plot(dis2)
+```
+
+5. **bin_variable**: Binomial random variable function that returns an object of class "binvar" that is a binomial random variable object.
+```{r bin_variable}
+bin_variable(trials = 5, prob = 0.5)
+```
+
+Method used with `bin_variable` function that graphs the cumulative distribution of binomial distribution object "bincum":
+```{r print_bin_variable}
+bin1 <- bin_variable(trials = 10, p = 0.3)
+bin1
+```
+
+Method used with `bin_variable` function that gives the full summary description of an object "binvar":
+```{r summary_bin_variable}
+bin1 <- bin_variable(trials = 10, p = 0.3)
+summary(bin1)
+```
+
+Method used with `bin_variable` function and summary method that prints the summary.binvar object:
+```{r print_bin_variable_sum}
+bin1 <- bin_variable(trials = 10, p = 0.3)
+binsum1 <- summary(bin1)
+binsum1
+```
+
+** Summary Measures Descriptions **
+
+1. *Mean* = $np$
+
+2. *Variance* = $np(1 - p)$
+
+3. *Mode* = $int(np + p)$
+
+4. *Skewness* = $\frac{1 - 2p}{\sqrt{np(1 - p)}}$
+
+5. *Kurtosis* = $\frac{1 - 6p(1 - p)}{np(1 - p)}$
+
+Can also directly calculate these summary measures using functions below:
+```{r summary_measures}
+bin_mean(10, 0.3)
+bin_variance(10, 0.3)
+bin_mode(10, 0.3)
+bin_skewness(10, 0.3)
+bin_kurtosis(10, 0.3)
+```
+
+## Extra Help
+If need more documentation, can call the help function on any of the functions described above in this vignette.
+
+Example for calling help function on bin_choose:
+```{r eval = FALSE}
+help(bin_choose)
+```
